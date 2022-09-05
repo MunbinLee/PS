@@ -5,11 +5,11 @@ using namespace std;
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
-    int n;
-    cin >> n;
+    int a, b;
 
-    for (int i = 1; i <= n; i++) {
-        cout << i << '\n';
+    while (true) {
+        cin >> a >> b;
+        if (a == 0) return 0;
+        cout << a + b << '\n';
     }
-    return 0;
 }
