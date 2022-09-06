@@ -12,6 +12,7 @@ int main() {
     else if (n >= 70) c = 'C';
     else if (n >= 60) c = 'D';
     else c = 'F';
+
     cout << c;
     return 0;
 }

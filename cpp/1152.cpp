@@ -6,13 +6,13 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int n, x;
-    cin >> n >> x;
+    string s;
+    int res = 0;
 
-    while (n--) {
-        int a;
-        cin >> a;
-        if (a < x) cout << a << ' ';
+    while (cin >> s) {
+        res++;
     }
+
+    cout << res;
     return 0;
 }
