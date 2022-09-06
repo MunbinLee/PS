@@ -5,7 +5,7 @@ using namespace std;
 int main() {
     string s;
     cin >> s;
-    
-    cout << s.length();
+
+    cout << s.size();
     return 0;
 }

@@ -10,11 +10,10 @@ int main() {
     cin >> s;
     int arr[26]{};
 
-    for (int i = 0; i < s.length(); i++) {
-        int idx = s[i];
-        if (idx > 'Z') idx -= 'a';
-        else idx -= 'A';
-        arr[idx]++;
+    for (char c : s) {
+        if (c > 'Z') c -= 'a';
+        else c -= 'A';
+        arr[c]++;
     }
 
     int res;
