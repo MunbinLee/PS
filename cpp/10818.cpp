@@ -1,22 +1,23 @@
 #include <iostream>
-#include <unordered_set>
 
 using namespace std;
-
-#define REP(i, n) for (int (i) = 0; (i) < (n); ++(i))
 
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    unordered_set<int> s;
+    int n;
+    cin >> n;
+    int mn = 1000000;
+    int mx = -1000000;
 
-    REP(i, 10) {
+    while (n--) {
         int tmp;
         cin >> tmp;
-        s.insert(tmp % 42);
+        mn = min(mn, tmp);
+        mx = max(mx, tmp);
     }
 
-    cout << s.size();
+    cout << mn << ' ' << mx;
     return 0;
 }
