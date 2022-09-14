@@ -3,26 +3,24 @@
 
 using namespace std;
 
+#define REP(i, n) for (int (i) = 0; (i) < (n); ++(i))
+
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
 
     int n, m;
     cin >> n >> m;
-    vector<vector<int>> v(n, vector<int>(m, 0));
+    vector<vector<int>> v(n, vector<int>(m));
 
-    for (int i = 0; i < 2; i++) {
-        for (int j = 0; j < n; j++) {
-            for (int k = 0; k < m; k++) {
-                int a;
-                cin >> a;
-                v[j][k] += a;
+    REP(i, 2) REP(j, n) REP(k, m) {
+                int tmp;
+                cin >> tmp;
+                v[j][k] += tmp;
             }
-        }
-    }
 
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < m; j++) {
+    REP(i, n) {
+        REP(j, m) {
             cout << v[i][j] << ' ';
         }
         cout << '\n';

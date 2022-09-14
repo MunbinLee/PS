@@ -2,4 +2,4 @@ cmake_minimum_required(VERSION 3.23)
 project(BOJ_cpp)
 
 set(CMAKE_CXX_STANDARD 17)
-add_executable(Out cpp/1259.cpp)
+add_executable(Out cpp/1920_2.cpp)
