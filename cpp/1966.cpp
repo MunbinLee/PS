@@ -1,5 +1,6 @@
+#include <algorithm>
 #include <iostream>
-#include <vector>
+#include <queue>
 
 using namespace std;
 
@@ -8,10 +9,34 @@ int main() {
     cin.tie(nullptr);
 
     int t;
+    cin >> t;
     while (t--) {
         int n, m;
-        vector<int> v(n);
-        for (int &i : v) cin >> i;
+        cin >> n >> m;
+        vector<int> v;
+        queue<pair<int, int>> q;
+
+        for (int i = 0; i < n; i++) {
+            int priority;
+            cin >> priority;
+            v.emplace_back(priority);
+            q.emplace(i, priority);
+        }
+
+        sort(v.begin(), v.end());
+
+        int cnt = 0;
+        while (true) {
+            if (v.back() == q.front().second) {
+                cnt++;
+                if (m == q.front().first) break;
+                v.pop_back();
+            }
+            else
+                q.emplace(q.front());
+            q.pop();
+        }
+        cout << cnt << '\n';
     }
     return 0;
 }
