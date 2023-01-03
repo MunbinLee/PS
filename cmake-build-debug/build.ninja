@@ -49,11 +49,11 @@ cmake_ninja_workdir = C$:/Users/MB/Documents/Github/PS_CPP/cmake-build-debug/
 
 build cmake_object_order_depends_target_PS_CPP: phony || CMakeFiles/PS_CPP.dir
 
-build CMakeFiles/PS_CPP.dir/main.cpp.obj: CXX_COMPILER__PS_CPP_Debug C$:/Users/MB/Documents/Github/PS_CPP/main.cpp || cmake_object_order_depends_target_PS_CPP
-  DEP_FILE = CMakeFiles\PS_CPP.dir\main.cpp.obj.d
+build CMakeFiles/PS_CPP.dir/Study/1.cpp.obj: CXX_COMPILER__PS_CPP_Debug C$:/Users/MB/Documents/Github/PS_CPP/Study/1.cpp || cmake_object_order_depends_target_PS_CPP
+  DEP_FILE = CMakeFiles\PS_CPP.dir\Study\1.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\PS_CPP.dir
-  OBJECT_FILE_DIR = CMakeFiles\PS_CPP.dir
+  OBJECT_FILE_DIR = CMakeFiles\PS_CPP.dir\Study
 
 
 # =============================================================================
@@ -63,7 +63,7 @@ build CMakeFiles/PS_CPP.dir/main.cpp.obj: CXX_COMPILER__PS_CPP_Debug C$:/Users/M
 #############################################
 # Link the executable PS_CPP.exe
 
-build PS_CPP.exe: CXX_EXECUTABLE_LINKER__PS_CPP_Debug CMakeFiles/PS_CPP.dir/main.cpp.obj
+build PS_CPP.exe: CXX_EXECUTABLE_LINKER__PS_CPP_Debug CMakeFiles/PS_CPP.dir/Study/1.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\PS_CPP.dir
