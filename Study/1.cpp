@@ -22,6 +22,7 @@ int main() {
   while (left != right) {
     int sum = v[left] + v[right];
     int diff = abs(sum - k);
+
     if (diff < mnDiff) {
       mnDiff = diff;
       cnt = 1;

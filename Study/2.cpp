@@ -2,28 +2,28 @@
 #include <vector>
 using namespace std;
 
-int floor(int n, int k, vector<int> &v) {
+int floor(int n, int k, const vector<int> &v) {
   int left = 0;
   int right = n - 1;
-  while (left + 1 < right) {
+
+  while (left <= right) {
     int mid = (left + right) / 2;
-    if (v[mid] > k && v[mid - 1] <= k) {
-      return mid - 1;
-    }
-    left = mid;
+    if (v[mid] <= k and (mid == n - 1 || v[mid + 1] > k)) return v[mid];
+    if (v[mid] < k) left = mid + 1;
+    else right = mid - 1;
   }
   return -1;
 }
 
-int ceiling(int n, int k, vector<int> &v) {
+int ceiling(int n, int k, const vector<int> &v) {
   int left = 0;
   int right = n - 1;
-  while (left < right) {
+
+  while (left <= right) {
     int mid = (left + right) / 2;
-    if (v[mid] < k && v[mid - 1] >= k) {
-      return mid - 1;
-    }
-    right = mid;
+    if (v[mid] >= k and (mid == 0 || v[mid - 1] < k)) return v[mid];
+    if (v[mid] < k) left = mid + 1;
+    else right = mid - 1;
   }
   return -1;
 }
