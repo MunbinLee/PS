@@ -16,8 +16,8 @@ int main() {
 
   int left = 0;
   int right = n - 1;
-  int mnDiff = INT32_MAX;
-  int cnt = 0;
+  int mnDiff = INT32_MAX; // k와의 최소 차이
+  int cnt = 0; // k에 가장 가까운 정수쌍의 개수
 
   while (left != right) {
     int sum = v[left] + v[right];
@@ -29,6 +29,8 @@ int main() {
     } else if (diff == mnDiff) cnt++;
 
     (sum > k) ? right-- : left++;
+    // 오른쪽 인덱스를 왼쪽으로 옮기면 sum이 작아진다.
+    // 왼쪽 인덱스를 오른쪽으로 옮기면 sum이 커진다.
   }
 
   cout << cnt;
