@@ -34,13 +34,9 @@ void dfs(string s, int dist) {
   }
 }
 
-void output() {
-  for (string s : answers) cout << s << '\n';
-}
-
 int main() {
   input();
   dfs(binary, 0);
-  output();
+  for (string s : answers) cout << s << '\n';
   return 0;
 }

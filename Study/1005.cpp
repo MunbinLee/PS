@@ -2,8 +2,10 @@
 
 using namespace std;
 
-void solve() {
-
+bool isAlive(const int n, int div) {
+  if (n % div == 0) return false;
+  if (n < div) return true;
+  return isAlive(n - n / div, div + 1);
 }
 
 int main() {
@@ -12,5 +14,6 @@ int main() {
 
   int n;
   cin >> n;
+  cout << (isAlive(n, 2) ? "Yes" : "No");
   return 0;
 }

@@ -35,40 +35,40 @@ bool isWall(int y, int x) {
 }
 
 void dfs(int y, int x, int dir, int cnt) {
-  if (isWall(y, x)) return;
-  if (visited[y][x]) return;
   if (y == n - 1 && x == n - 1) {
     if (cnt < mn) mn = cnt;
     return;
   }
 
-  visited[y][x] = true;
   int ny = y + dy[dir];
   int nx = x + dx[dir];
-
+  if (visited[ny][nx]) return;
   if (isWall(ny, nx)) {
     for (int i = 0; i < 4; i++) {
       int nny = y + dy[i];
       int nnx = x + dx[i];
-      dfs(nny, nnx, i, dir + 1);
+      if (visited[nny][nnx]) continue;
+      if (isWall(nny, nnx)) continue;
+      visited[nny][nnx] = true;
+      dfs(nny, nnx, i, cnt + 1);
+      visited[nny][nnx] = false;
     }
-    visited[y][x] = false;
     return;
   }
 
-
+  visited[ny][nx] = true;
   dfs(ny, nx, dir, cnt);
-  visited[y][x] = false;
+  visited[ny][nx] = false;
 }
 
 int main() {
   input();
 
+  visited[0][0] = true;
   for (int i = 1; i <= 2; i++) {
     dfs(0, 0, i, 0);
   }
 
-  if (mn == MAX) cout << "No Path";
-  else cout << mn;
+  cout << mn;
   return 0;
 }

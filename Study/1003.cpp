@@ -1,6 +1,9 @@
 #include <iostream>
 #include <vector>
 
+#define WALL 1
+#define BOMB 2
+
 using namespace std;
 
 int n, k;
@@ -36,8 +39,8 @@ void dfs(int y, int x, int hurt) {
     int nx = x + dx[i];
     if (ny == -1 || ny == n || nx == -1 || nx == n) continue;
     if (visited[ny][nx]) continue;
-    if (map[ny][nx] == 1) continue;
-    int nhurt = hurt + (map[ny][nx] == 2);
+    if (map[ny][nx] == WALL) continue;
+    int nhurt = hurt + (map[ny][nx] == BOMB);
     if (nhurt > k) continue;
 
     visited[ny][nx] = true;
@@ -50,7 +53,8 @@ int main() {
   input();
 
   visited[0][0] = true;
-  int hurt = (map[0][0] == 2);
+  int hurt = 0;
+  if (map[0][0] == BOMB) hurt++;
 
   dfs(0, 0, hurt);
   cout << "No";
