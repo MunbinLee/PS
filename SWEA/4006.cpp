@@ -41,7 +41,7 @@ void unionParent(int a, int b) {
   else parent[a] = b;
 }
 
-bool findParent(int a, int b) {
+bool isCycle(int a, int b) {
   a = getParent(a);
   b = getParent(b);
   if (a == b) return true;

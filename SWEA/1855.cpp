@@ -2,8 +2,10 @@
 
 using namespace std;
 
-void input() {
+int n;
 
+void input() {
+  scanf("%d", &n);
 }
 
 void solve() {

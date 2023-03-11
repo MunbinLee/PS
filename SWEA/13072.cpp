@@ -1,130 +1,139 @@
-#ifndef _CRT_SECURE_NO_WARNINGS
-#define _CRT_SECURE_NO_WARNINGS
-#endif
-
-#include <stdio.h>
-
 #define CMD_INIT 1
 #define CMD_HIRE 2
 #define CMD_FIRE 3
 #define CMD_UPDATE_SOLDIER 4
 #define CMD_UPDATE_TEAM 5
 #define CMD_BEST_SOLDIER 6
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+#include <iostream>
+#include <tuple>
 
-const int MIN_SCORE = 1;
-const int MAX_SCORE = 5;
-const int MAX_TEAM = 5;
-const int MAX_NODE = 100000;
+#define MAX_SOLDIER 100000
+#define MAX_TEAM 5
+#define MAX_SCORE 5
 
 struct Node {
-  int key, team;
+  int id, team;
   Node *next, *prev;
 };
 
-Node node[MAX_NODE + 1];
+Node node[MAX_SOLDIER + 1];
 Node *head[MAX_TEAM + 1][MAX_SCORE + 1];
 Node *tail[MAX_TEAM + 1][MAX_SCORE + 1];
 
-Node *createNode(int key, int team, int score) {
-  Node *pNode = &node[key];
-  pNode->key = key;
+void assert() {
+  printf("assert\n");
+}
+
+void init() {
+  for (int i = 1; i <= MAX_TEAM; i++) {
+    for (int j = 1; j <= MAX_SCORE; j++) {
+      head[i][j] = nullptr;
+      tail[i][j] = nullptr;
+    }
+  }
+}
+
+Node *createNode(int id, int team) {
+  Node *pNode = &node[id];
+  pNode->id = id;
   pNode->team = team;
   pNode->next = nullptr;
   pNode->prev = nullptr;
   return pNode;
 }
 
-void moveScore(int team, int from, int to) {
-  Node **fromHead = &head[team][from];
-  Node **fromTail = &tail[team][from];
-  Node **toHead = &head[team][to];
-  Node **toTail = &tail[team][to];
+void hire(int mID, int mTeam, int mScore) {
+  if (!head[mTeam][mScore] and tail[mTeam][mScore]) assert();
+  if (head[mTeam][mScore] and !tail[mTeam][mScore]) assert();
 
-  if (*toTail) (*toTail)->next = *fromHead;
-  else *toHead = *fromHead;
-
-  if (*fromHead) (*fromHead)->prev = *toTail;
-  if (*fromTail) *toTail = *fromTail;
-
-  *fromHead = nullptr;
-  *fromTail = nullptr;
+  Node *pNode = createNode(mID, mTeam);
+  if (!head[mTeam][mScore]) {
+    head[mTeam][mScore] = pNode;
+    tail[mTeam][mScore] = pNode;
+  } else {
+    tail[mTeam][mScore]->next = pNode;
+    pNode->prev = tail[mTeam][mScore];
+    tail[mTeam][mScore] = pNode;
+  }
 }
 
-void init() {
-  for (int team = 1; team <= MAX_TEAM; team++) {
-    for (int score = 1; score <= MAX_SCORE; score++) {
-      head[team][score] = nullptr;
-      tail[team][score] = nullptr;
+std::pair<int, int> isHead(int id) {
+  for (int i = 1; i <= MAX_TEAM; i++) {
+    for (int j = 1; j <= MAX_SCORE; j++) {
+      if (head[i][j] && head[i][j]->id == id) return {i, j};
     }
   }
+  return {-1, -1};
 }
 
-void hire(int mID, int mTeam, int mScore) {
-  Node *pNode = createNode(mID, mTeam, mScore);
-  Node **pHead = &head[mTeam][mScore];
-  Node **pTail = &tail[mTeam][mScore];
-
-  if (!*pHead) *pHead = pNode;
-  else {
-    pNode->prev = *pTail;
-    (*pTail)->next = pNode;
+std::pair<int, int> isTail(int id) {
+  for (int i = 1; i <= MAX_TEAM; i++) {
+    for (int j = 1; j <= MAX_SCORE; j++) {
+      if (tail[i][j] && tail[i][j]->id == id) return {i, j};
+    }
   }
-  *pTail = pNode;
+  return {-1, -1};
 }
 
 void fire(int mID) {
   Node *pNode = &node[mID];
-  int team = pNode->team;
+  if (pNode->next) pNode->next->prev = pNode->prev;
+  if (pNode->prev) pNode->prev->next = pNode->next;
 
-  Node **pHead = nullptr;
-  Node **pTail = nullptr;
-  for (int score = MIN_SCORE; score <= MAX_SCORE; score++) {
-    if (pNode == head[team][score]) pHead = &head[team][score];
-    if (pNode == tail[team][score]) pTail = &tail[team][score];
-  }
-
-  if (pHead) *pHead = (*pHead)->next;
-  else pNode->prev->next = pNode->next;
-
-  if (pTail) *pTail = (*pTail)->prev;
-  else pNode->next->prev = pNode->prev;
+  int team, score;
+  std::tie(team, score) = isHead(mID);
+  if (team != -1) head[team][score] = head[team][score]->next;
+  std::tie(team, score) = isTail(mID);
+  if (team != -1) tail[team][score] = tail[team][score]->prev;
 }
 
 void updateSoldier(int mID, int mScore) {
-  int team = node[mID].team;
+  int mTeam = node[mID].team;
   fire(mID);
-  hire(mID, team, mScore);
+  hire(mID, mTeam, mScore);
+}
+
+void moveScore(int team, int from, int to) {
+  if (to > MAX_SCORE || to <= 0) return;
+  if (!head[team][from]) return;
+  if (tail[team][to]) {
+    tail[team][to]->next = head[team][from];
+    head[team][from]->prev = tail[team][to];
+  } else head[team][to] = head[team][from];
+  tail[team][to] = tail[team][from];
+  head[team][from] = nullptr;
+  tail[team][from] = nullptr;
 }
 
 void updateTeam(int mTeam, int mChangeScore) {
   if (mChangeScore > 0) {
-    for (int to = MAX_SCORE; to > MIN_SCORE; to--) {
-      int from = to - mChangeScore;
-      if (from < MIN_SCORE) break;
-      moveScore(mTeam, from, to);
+    for (int i = MAX_SCORE - 1; i >= 0; i--) {
+      moveScore(mTeam, i, i + mChangeScore);
     }
   } else {
-    for (int to = MIN_SCORE; to < MAX_SCORE; to++) {
-      int from = to - mChangeScore;
-      if (from > MAX_SCORE) break;
-      moveScore(mTeam, from, to);
+    for (int i = 2; i <= MAX_SCORE; i++) {
+      moveScore(mTeam, i, i + mChangeScore);
     }
   }
 }
 
-int bestSoldier(int mTeam) {
-  int maxKey = 0;
-  for (int score = MAX_SCORE; score >= MIN_SCORE; score--) {
-    Node *pnode = head[mTeam][score];
-    while (pnode) {
-      if (pnode->key > maxKey) {
-        maxKey = pnode->key;
-      }
-      pnode = pnode->next;
-    }
-    if (maxKey != 0) break;
+int bestSoldierInScore(int mTeam, int mScore) {
+  int id = -1;
+  Node *pNode = head[mTeam][mScore];
+  while (pNode) {
+    if (pNode->id > id) id = pNode->id;
+    pNode = pNode->next;
   }
-  return maxKey;
+  return id;
+}
+
+int bestSoldier(int mTeam) {
+  for (int i = MAX_SCORE; i > 0; i--) {
+    int id = bestSoldierInScore(mTeam, i);
+    if (id != -1) return id;
+  }
 }
 
 /////////////////////////////////////////////////////////////////////////
@@ -145,29 +154,36 @@ static bool run() {
     int cmd;
     scanf("%d", &cmd);
     switch (cmd) {
-      case CMD_INIT:init();
+      case CMD_INIT:
+        init();
         isCorrect = true;
         break;
-      case CMD_HIRE:scanf("%d %d %d", &mID, &mTeam, &mScore);
+      case CMD_HIRE:
+        scanf("%d %d %d", &mID, &mTeam, &mScore);
         hire(mID, mTeam, mScore);
         break;
-      case CMD_FIRE:scanf("%d", &mID);
+      case CMD_FIRE:
+        scanf("%d", &mID);
         fire(mID);
         break;
-      case CMD_UPDATE_SOLDIER:scanf("%d %d", &mID, &mScore);
+      case CMD_UPDATE_SOLDIER:
+        scanf("%d %d", &mID, &mScore);
         updateSoldier(mID, mScore);
         break;
-      case CMD_UPDATE_TEAM:scanf("%d %d", &mTeam, &mChangeScore);
+      case CMD_UPDATE_TEAM:
+        scanf("%d %d", &mTeam, &mChangeScore);
         updateTeam(mTeam, mChangeScore);
         break;
-      case CMD_BEST_SOLDIER:scanf("%d", &mTeam);
+      case CMD_BEST_SOLDIER:
+        scanf("%d", &mTeam);
         userAns = bestSoldier(mTeam);
         scanf("%d", &ans);
         if (userAns != ans) {
           isCorrect = false;
         }
         break;
-      default:isCorrect = false;
+      default:
+        isCorrect = false;
         break;
     }
   }
@@ -176,7 +192,7 @@ static bool run() {
 }
 
 int main() {
-  setbuf(stdout, NULL);
+  setbuf(stdout, nullptr);
   //freopen("sample_input.txt", "r", stdin);
 
   int T, MARK;
