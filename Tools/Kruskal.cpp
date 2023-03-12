@@ -34,23 +34,23 @@ int getParent(int i) {
 }
 
 void unionParent(int a, int b) {
-  a = getParent(a);
-  b = getParent(b);
-  if (a < b) parent[b] = a;
-  else parent[a] = b;
+  int pa = getParent(a);
+  int pb = getParent(b);
+  if (pa < pb) parent[pb] = pa;
+  else parent[pa] = pb;
 }
 
-bool isParentSame(int a, int b) {
-  a = getParent(a);
-  b = getParent(b);
-  return (a == b);
+bool findParent(int a, int b) {
+  int pa = getParent(a);
+  int pb = getParent(b);
+  return (pa == pb);
 }
 
 int solve() {
   int res = 0;
   for (auto i: edge) {
     auto [cost, start, end] = i;
-    if (!isParentSame(start, end)) {
+    if (!findParent(start, end)) {
       res += cost;
       unionParent(start, end);
     }
