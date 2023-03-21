@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <queue>
 
 using namespace std;
 
@@ -10,8 +11,8 @@ enum {
 };
 
 int n;
-int dx[4] = {-1, 1, 0, 0};
-int dy[4] = {0, 0, -1, 1};
+int dy[4] = {-1, 1, 0, 0};
+int dx[4] = {0, 0, -1, 1};
 vector<vector<int>> board;
 pair<int, int> startPos, endPos;
 
@@ -27,29 +28,32 @@ void input() {
     }
   }
   cin >> startPos.first >> startPos.second >> endPos.first >> endPos.second;
-  board[startPos.first][startPos.second] = VISITED;
+  auto [y, x] = startPos;
+  board[y][x] = VISITED;
 }
 
-bool isReachable(pair<int, int> pos) {
+bool isReachable(pair<int, int> pos, queue<pair<int, int>> q) {
   if (pos == endPos) return true;
 
   for (int i = 0; i < 4; i++) {
-    int nx = pos.first + dx[i];
-    int ny = pos.second + dy[i];
+    int ny = pos.first + dy[i];
+    int nx = pos.second + dx[i];
     bool flag = false;
 
     while (true) {
-      if (nx == -1 || nx == n || ny == -1 || ny == n) break;
-      if (board[nx][ny] == WALL && flag) break;
+      if (ny == -1 || ny == n || nx == -1 || nx == n) break;
+      if (board[ny][nx] == 1 && flag) break;
 
-      if (board[nx][ny] == EMPTY && flag) {
-        board[nx][ny] = VISITED;
-        if (isReachable({nx, ny})) return true;
-      } else if (board[nx][ny] == WALL && !flag) {
+      if (board[ny][nx] == EMPTY) {
+        board[ny][nx] = VISITED;
+        q.emplace(ny, nx);
+        if (isReachable({ny, nx}, q)) return true;
+        board[ny][nx] = EMPTY;
+      } else if (board[ny][nx] == WALL && !flag) {
         flag = true;
       }
-      nx += dx[i];
       ny += dy[i];
+      nx += dx[i];
     }
   }
   return false;
@@ -57,6 +61,6 @@ bool isReachable(pair<int, int> pos) {
 
 int main() {
   input();
-  cout << (isReachable(startPos) ? "Yes" : "No");
+  cout << (isReachable(startPos, queue<pair<int, int>>()) ? "Yes" : "No");
   return 0;
 }
