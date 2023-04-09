@@ -1,9 +1,8 @@
 #include <iostream>
-#include <cmath>
 
 using namespace std;
 
-int n, r, c, cnt;
+int n, r, c;
 
 void input() {
   ios_base::sync_with_stdio(false);
@@ -11,29 +10,27 @@ void input() {
   cin >> n >> r >> c;
 }
 
-void ZSearch(int y, int x, int size) {
+void solve(int y, int x, int size, int cnt) {
   if (size == 0) {
-    if (y == r && x == c) {
-      cout << cnt;
-      exit(0);
-    }
-    cnt++;
-
+    cout << cnt;
     return;
-  };
-  int d = (int) pow(2, size - 1);
-  ZSearch(y, x, size - 1);
-  ZSearch(y, x + d, size - 1);
-  ZSearch(y + d, x, size - 1);
-  ZSearch(y + d, x + d, size - 1);
-}
+  }
 
-void solve() {
-  ZSearch(0, 0, n);
+  size--;
+  int d = 1 << size;
+  if (r >= y + d) {
+    y += d;
+    cnt += d * d * 2;
+  }
+  if (c >= x + d) {
+    x += d;
+    cnt += d * d;
+  }
+  solve(y, x, size, cnt);
 }
 
 int main() {
   input();
-  solve();
+  solve(0, 0, n, 0);
   return 0;
 }
