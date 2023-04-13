@@ -1,114 +1,99 @@
 #include <iostream>
-#include <list>
 #include <vector>
+#include <unordered_set>
 
 using namespace std;
 
 struct Shark {
   int r, c, s, d, z;
-  bool updated = false;
 
-  explicit Shark(int r, int c, int s, int d, int z) : r(r), c(c), s(s), d(d), z(z) {}
+  Shark(int r, int c, int s, int d, int z) : r(r), c(c), s(s), d(d), z(z) {}
 };
 
 int dr[5] = {0, -1, 1, 0, 0};
 int dc[5] = {0, 0, 0, 1, -1};
-
-int R, C, res;
-list<Shark *> ls;
-vector<vector<Shark *>> board, emptyBoard;
+int R, C, M;
+unordered_set<Shark *> st;
+vector<vector<Shark *>> board;
 
 void input() {
   ios_base::sync_with_stdio(false);
   cin.tie(nullptr);
 
-  int M;
   cin >> R >> C >> M;
   board.resize(R + 1, vector<Shark *>(C + 1));
-  emptyBoard.resize(R + 1, vector<Shark *>(C + 1));
-  while (M--) {
+  for (int i = 0; i < M; i++) {
     int r, c, s, d, z;
     cin >> r >> c >> s >> d >> z;
-    auto *pShark = new Shark(r, c, s, d, z);
-    ls.emplace_back(pShark);
-    board[r][c] = pShark;
+    if (d == 1 || d == 2) s %= R * 2 - 2;
+    else s %= C * 2 - 2;
+    auto *shark = new Shark(r, c, s, d, z);
+    st.emplace(shark);
+    board[r][c] = shark;
   }
 }
 
-void catchShark(int r, int c) {
-  Shark *pShark = board[r][c];
-  res += pShark->z;
-  ls.remove(pShark);
-  board[r][c] = nullptr;
+int reverseDir(int dir) {
+  if (dir == 1) return 2;
+  else if (dir == 2) return 1;
+  else if (dir == 3) return 4;
+  else return 3;
 }
 
-void reverseDir(int &dir) {
-  if (dir == 1) dir = 2;
-  else if (dir == 2) dir = 1;
-  else if (dir == 3) dir = 4;
-  else if (dir == 4) dir = 3;
-}
-
-void moveShark() {
-  board = emptyBoard;
-  for (auto pShark: ls) {
-    pShark->updated = false;
+void moveSharks() {
+  for (auto shark: st) {
+    board[shark->r][shark->c] = nullptr;
   }
 
-  while (!ls.empty()) {
-    Shark *pShark = ls.front();
-    if (pShark->updated) break;
-    ls.pop_front();
+  vector<Shark *> dead;
+  for (auto shark: st) {
+    int &r = shark->r;
+    int &c = shark->c;
+    int &d = shark->d;
 
-    int &r = pShark->r;
-    int &c = pShark->c;
-    int &d = pShark->d;
-    int s = pShark->s;
-    int z = pShark->z;
-
-    board[r][c] = nullptr;
-    int nr = r + dr[d];
-    int nc = pShark->c + dc[d];
+    int s = shark->s;
     while (s) {
+      int nr = r + dr[d];
+      int nc = c + dc[d];
       if (nr == 0 || nr == R + 1 || nc == 0 || nc == C + 1) {
-        reverseDir(d);
-        nr = r + dr[d];
-        nc = c + dc[d];
+        d = reverseDir(d);
         continue;
       }
       r = nr;
       c = nc;
-      nr += dr[d];
-      nc += dc[d];
       s--;
     }
 
-    pShark->updated = true;
-    if (board[r][c]) { // 두 상어가 겹칠 경우
-      if (z > board[r][c]->z) { // 잡아먹음
-        ls.remove(board[r][c]);
-        board[r][c] = pShark;
-        ls.emplace_back(pShark);
-      }
-      // else 잡아먹힘
+    auto &other = board[r][c];
+    if (!other) {
+      other = shark;
+    } else if (shark->z > other->z) {
+      dead.emplace_back(other);
+      other = shark;
     } else {
-      board[r][c] = pShark;
-      ls.emplace_back(pShark);
+      dead.emplace_back(shark);
     }
+  }
+
+  for (auto shark: dead) {
+    st.erase(shark);
   }
 }
 
 void solve() {
-  for (int i = 1; i <= C; i++) { // 낚시왕의 위치
+  int sumSize = 0;
+  for (int i = 1; i <= C; i++) {
     for (int j = 1; j <= R; j++) {
-      if (board[j][i]) {
-        catchShark(j, i);
-        break;
-      }
+      auto &shark = board[j][i];
+      if (!shark) continue;
+      sumSize += shark->z;
+      st.erase(shark);
+      board[j][i] = nullptr;
+      break;
     }
-    moveShark();
+    moveSharks();
   }
-  cout << res;
+  cout << sumSize;
 }
 
 int main() {
