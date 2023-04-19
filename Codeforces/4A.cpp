@@ -2,19 +2,13 @@
 
 using namespace std;
 
-void input() {
-
-}
-
-void solve() {
-
-}
-
 int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(nullptr);
 
-  input();
-  solve();
-  return 0;
+  int w;
+  cin >> w;
+
+  string res = (w % 2 == 0 && w >= 4) ? "YES" : "NO";
+  cout << res;
 }
