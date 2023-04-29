@@ -8,8 +8,12 @@ int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(nullptr);
 
+  const double d = 10000000000000;
   double a, b;
   cin >> a >> b;
-  cout << setprecision(1000) << a / b;
+  a *= d;
+  double c = a / b;
+  c /= d;
+  cout << setprecision(1000) << c;
   return 0;
 }
