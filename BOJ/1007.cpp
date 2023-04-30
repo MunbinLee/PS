@@ -1,32 +1,52 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <iomanip>
 
 using namespace std;
+typedef pair<int, int> pr;
+typedef long long int ll;
 
 int n;
-vector<pair<int, int>> v;
+vector<pr> v;
 
-void input() {
-  cin >> n;
-  v.resize(n);
-  for (auto &i: v) {
-    cin >> i.first >> i.second;
+int bitCount(int visited) {
+  return __builtin_popcount(visited);
+}
+
+ll calc(int visited) {
+  if (bitCount(visited) != n / 2) return INT64_MAX;
+
+  ll x = 0;
+  ll y = 0;
+  for (int i = 0; i < n; i++) {
+    if (visited & (1 << i)) {
+      x += v[i].first;
+      y += v[i].second;
+    } else {
+      x -= v[i].first;
+      y -= v[i].second;
+    }
   }
+  return x * x + y * y;
+}
+
+double dfs(int idx, int visited) {
+  if (idx == n) return calc(visited);
+
+  return min(dfs(idx + 1, visited), dfs(idx + 1, visited + (1 << idx)));
 }
 
 void solve() {
-  double res = 300000;
-  for (int i = 0; i < n; i++) {
-    for (int j = i + 1; j < n; j++) {
-      int x = v[i].first - v[j].first;
-      int y = v[i].second - v[j].second;
-      double dist = sqrt((double) x * x + (double) y * y);
-      if (dist < res) res = dist;
-    }
+  cin >> n;
+  v.resize(n);
+  for (auto &[x, y]: v) {
+    cin >> x >> y;
   }
-  cout.precision(7);
-  cout << fixed << res << '\n';
+
+  ll dist2 = dfs(0, 0);
+  double dist = sqrt(dist2);
+  cout << fixed << setprecision(6) << dist << '\n';
 }
 
 int main() {
@@ -36,7 +56,6 @@ int main() {
   int t;
   cin >> t;
   while (t--) {
-    input();
     solve();
   }
   return 0;
