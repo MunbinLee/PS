@@ -7,9 +7,6 @@ int n;
 vector<int> segTree;
 
 int getGCD(int a, int b) {
-  if (a == -1) return b;
-  if (b == -1) return a;
-
   if (b == 0) return a;
   return getGCD(b, a % b);
 }
@@ -42,7 +39,7 @@ int main() {
   int maxK;
   for (int i = 0; i < n; i++) {
     int k = segTree[n + i];
-    update(i, -1);
+    update(i, 0);
     int gcd = segTree[1];
     if (k % gcd && gcd > maxGCD) {
       maxGCD = gcd;
