@@ -1,4 +1,4 @@
-#include <iostream>
+#include <string>
 #include <vector>
 #include <unordered_map>
 
@@ -19,13 +19,11 @@ void insertNode(string &s) {
 }
 
 int find(int idx, Node *pNode, string &s, string cur) {
-  if (idx == s.size()) {
-    if (!pNode) {
-      cout << cur << ' ';
-      return 1;
-    } else return 0;
-  }
   if (!pNode) return 0;
+  if (idx == s.size()) {
+    if (pNode->child.empty()) return 1;
+    else return 0;
+  }
 
   int cnt = 0;
   if (s[idx] == '?') {
@@ -34,7 +32,7 @@ int find(int idx, Node *pNode, string &s, string cur) {
     }
   } else {
     Node *nNode = pNode->child[s[idx]];
-    cnt += find(idx + 1, nNode, s, cur + s[idx]);
+    if (nNode) cnt += find(idx + 1, nNode, s, cur + s[idx]);
   }
   return cnt;
 }
@@ -47,9 +45,7 @@ vector<int> solution(vector<string> words, vector<string> queries) {
   vector<int> answer;
   answer.reserve(queries.size());
   for (string &query: queries) {
-    cout << query << " : ";
     answer.emplace_back(find(0, root, query, {}));
-    cout << '\n';
   }
   return answer;
 }
