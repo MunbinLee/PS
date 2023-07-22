@@ -16,9 +16,9 @@ int main() {
   }
   sort(v.begin(), v.end(), greater<>());
 
-  int count = m / (k + 1) * k;
-  int res = v[0] * count;
-  res += v[1] * (m - count);
+  int cnt = m / (k + 1) * k;
+  int res = v[0] * cnt;
+  res += v[1] * (m - cnt);
 
   cout << res;
 
