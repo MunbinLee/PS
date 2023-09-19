@@ -11,7 +11,7 @@ int main() {
   int n;
   cin >> n;
   vector<int> v(n);
-  for (int &i : v) cin >> i;
+  for (int &i: v) cin >> i;
 
   int m = (int) sqrt(n);
   int numOfGroups = ceil((double) n / m);

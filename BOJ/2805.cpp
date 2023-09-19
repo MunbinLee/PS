@@ -16,7 +16,7 @@ class Trie {
     }
   };
 
-  std::vector< TrieNode > nodes;
+  std::vector<TrieNode> nodes;
 
 public:
 //  Trie() : nodes(1) {}
@@ -27,9 +27,9 @@ public:
     nodes[0] = TrieNode();
   }
 
-  void insert(const std::string& str) {
+  void insert(const std::string &str) {
     int node_id = 0;
-    for (const auto& c : str) {
+    for (const auto &c: str) {
       if (nodes[node_id].child[c - OFFSET] == -1) {
         nodes[node_id].child[c - OFFSET] = nodes.size();
         nodes.emplace_back();
@@ -39,9 +39,9 @@ public:
     nodes[node_id].is_terminal = true;
   }
 
-  void remove(const std::string& str) {
+  void remove(const std::string &str) {
     int node_id = 0;
-    for (const auto& c : str) {
+    for (const auto &c: str) {
       if (nodes[node_id].child[c - OFFSET] == -1) {
         return;
       }
@@ -50,9 +50,9 @@ public:
     nodes[node_id].is_terminal = false;
   }
 
-  bool find(const std::string& str) const {
+  bool find(const std::string &str) const {
     int node_id = 0;
-    for (const auto& c : str) {
+    for (const auto &c: str) {
       if (nodes[node_id].child[c - OFFSET] == -1) {
         return false;
       }

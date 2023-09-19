@@ -3,8 +3,8 @@
 using namespace std;
 
 int main() {
-    long long n;
-    cin >> n;
-    cout << n + 1;
-    return 0;
+  long long n;
+  cin >> n;
+  cout << n + 1;
+  return 0;
 }

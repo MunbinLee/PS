@@ -2,7 +2,7 @@
 #include <cstring>
 
 #define MAX 41
-#define max(a,b)  (((a) > (b)) ? (a) : (b))
+#define max(a, b)  (((a) > (b)) ? (a) : (b))
 
 char A[MAX], B[MAX];
 int dp[MAX][MAX];

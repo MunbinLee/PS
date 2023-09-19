@@ -11,7 +11,7 @@ void input() {
   cin.tie(nullptr);
 
   cin >> n;
-  v = vector<int>(n+1);
+  v = vector<int>(n + 1);
   for (int i = 1; i <= n; i++) {
     cin >> v[i];
   }

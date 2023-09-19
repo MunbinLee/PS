@@ -49,7 +49,7 @@ void save() {
 
 void update() {
   arr = baseArr;
-  auto [i,j] = pr;
+  auto [i, j] = pr;
   if (w[i][j] > w[j][i]) {
     arr[i][0] += 3;
   } else if (w[i][j] == w[j][i]) {

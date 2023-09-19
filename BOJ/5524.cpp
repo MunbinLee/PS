@@ -13,7 +13,7 @@ int main() {
     string s;
     cin >> s;
 
-    for (char c : s) {
+    for (char c: s) {
       putchar(tolower(c));
     }
     printf("\n");

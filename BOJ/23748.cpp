@@ -8,6 +8,6 @@ int main() {
 
   int n, x, y;
   cin >> x >> y;
-  
+
   return 0;
 }

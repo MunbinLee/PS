@@ -177,7 +177,8 @@ static void run() {
           printf("%d ", output[i++]);
         printf("\n");
         break;
-      case END:return;
+      case END:
+        return;
     }
   }
 }

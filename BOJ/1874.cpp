@@ -8,36 +8,36 @@ string res;
 stack<int> st;
 
 bool write(int n) {
-    while (cnt <= n) {
-        st.push(cnt);
-        cnt++;
-        res += "+\n";
-    }
-    if (st.top() == n) {
-        st.pop();
-        res += "-\n";
-        return true;
-    } else {
-        return false;
-    }
+  while (cnt <= n) {
+    st.push(cnt);
+    cnt++;
+    res += "+\n";
+  }
+  if (st.top() == n) {
+    st.pop();
+    res += "-\n";
+    return true;
+  } else {
+    return false;
+  }
 }
 
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
+  ios_base::sync_with_stdio(false);
+  cin.tie(nullptr);
 
-    int n;
-    cin >> n;
+  int n;
+  cin >> n;
 
-    while (n--) {
-        int tmp;
-        cin >> tmp;
-        if (!write(tmp)) {
-            cout << "NO";
-            return 0;
-        }
+  while (n--) {
+    int tmp;
+    cin >> tmp;
+    if (!write(tmp)) {
+      cout << "NO";
+      return 0;
     }
+  }
 
-    cout << res;
-    return 0;
+  cout << res;
+  return 0;
 }

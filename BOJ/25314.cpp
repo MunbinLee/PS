@@ -3,13 +3,13 @@
 using namespace std;
 
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
+  ios_base::sync_with_stdio(false);
+  cin.tie(nullptr);
 
-    int n;
-    cin >> n;
+  int n;
+  cin >> n;
 
-    while (n -= 4) cout << "long ";
-    cout << "long int";
-    return 0;
+  while (n -= 4) cout << "long ";
+  cout << "long int";
+  return 0;
 }

@@ -9,9 +9,9 @@ using tp = tuple<int, int, int>;
 
 pr dPos[] = {
     {-1, 0},
-    {0, -1},
-    {0, 1},
-    {1, 0}
+    {0,  -1},
+    {0,  1},
+    {1,  0}
 };
 
 int getMinDist(int n, int m, vector<string> &board) {

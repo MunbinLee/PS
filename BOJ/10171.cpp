@@ -3,9 +3,9 @@
 using namespace std;
 
 int main() {
-    cout << "\\    /\\\n"
-            " )  ( ')\n"
-            "(  /  )\n"
-            " \\(__)|";
-    return 0;
+  cout << "\\    /\\\n"
+          " )  ( ')\n"
+          "(  /  )\n"
+          " \\(__)|";
+  return 0;
 }

@@ -21,7 +21,7 @@ int main() {
     m *= 2;
     m %= mod;
   }
-  
+
   cout << res;
   return 0;
 }

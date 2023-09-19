@@ -4,7 +4,7 @@ using namespace std;
 
 bool contains(int x, int n) {
   if (n == 0 && x < 10) return true;
-  
+
   while (x) {
     if (x % 10 == n) return true;
     x /= 10;

@@ -52,7 +52,7 @@ int solve() {
         ls[lsIdx] = -1;
         break;
       }
-      if (visited[j]==2) { // 불가능
+      if (visited[j] == 2) { // 불가능
         for (int l = 0; l < n; l++) {
           if (ls[l] == -1) break;
           visited[ls[l]] = 2;

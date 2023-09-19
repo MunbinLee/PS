@@ -4,7 +4,7 @@
 using namespace std;
 typedef pair<int, int> pr; // 값, 인덱스
 
-vector<pr> v;
+vector <pr> v;
 vector<int> res;
 
 void input() {

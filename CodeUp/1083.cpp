@@ -3,13 +3,13 @@
 using namespace std;
 
 int main() {
-    int n;
-    cin >> n;
-    
-    for (int i = 1; i <= n; i++) {
-        if (i % 3 == 0) cout << 'X';
-        else cout << i;
-        cout << ' ';
-    }
-    return 0;
+  int n;
+  cin >> n;
+
+  for (int i = 1; i <= n; i++) {
+    if (i % 3 == 0) cout << 'X';
+    else cout << i;
+    cout << ' ';
+  }
+  return 0;
 }

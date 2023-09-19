@@ -3,8 +3,8 @@
 using namespace std;
 
 int main() {
-    cout << "\u250c\u252c\u2510\n";
-    cout << "\u251c\u253c\u2524\n";
-    cout << "\u2514\u2534\u2518";
-    return 0;
+  cout << "\u250c\u252c\u2510\n";
+  cout << "\u251c\u253c\u2524\n";
+  cout << "\u2514\u2534\u2518";
+  return 0;
 }

@@ -49,7 +49,7 @@ void update(ll start, ll end, ll value) {
     if (end % 2) {
       end--;
       propagate(end);
-      lazy[end]+=value;
+      lazy[end] += value;
     }
     start /= 2;
     end /= 2;

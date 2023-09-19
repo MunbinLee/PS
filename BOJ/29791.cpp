@@ -53,7 +53,7 @@ int main() {
     bindCnt[type]++;
   }
 
-  for (int cnt : bindCnt) {
+  for (int cnt: bindCnt) {
     cout << cnt << ' ';
   }
 

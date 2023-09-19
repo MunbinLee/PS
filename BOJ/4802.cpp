@@ -47,7 +47,7 @@ void solve() {
     auto pNode = tree;
     int numParams;
     cin >> numParams;
-    
+
 
     cin >> retType;
   }

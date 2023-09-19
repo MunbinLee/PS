@@ -9,7 +9,7 @@ int main() {
 
   int n;
   cin >> n;
-  vector<pair<int, int>> v(n);
+  vector <pair<int, int>> v(n);
   for (auto &i: v) {
     cin >> i.second >> i.first;
   }

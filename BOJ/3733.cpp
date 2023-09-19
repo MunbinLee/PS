@@ -3,13 +3,13 @@
 using namespace std;
 
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
+  ios_base::sync_with_stdio(false);
+  cin.tie(nullptr);
 
-    int a, b;
+  int a, b;
 
-    while (cin >> a >> b) {
-        cout << b / (a + 1) << '\n';
-    }
-    return 0;
+  while (cin >> a >> b) {
+    cout << b / (a + 1) << '\n';
+  }
+  return 0;
 }

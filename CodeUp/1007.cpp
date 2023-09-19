@@ -3,6 +3,6 @@
 using namespace std;
 
 int main() {
-    cout << "\"C:\\Download\\hello.cpp\"";
-    return 0;
+  cout << "\"C:\\Download\\hello.cpp\"";
+  return 0;
 }

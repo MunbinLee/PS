@@ -62,15 +62,20 @@ void solve(int key) {
     double lv = node[node[key].left].num;
     double rv = node[node[key].right].num;
     switch (node[key].op) {
-      case '+': node[key].num = lv + rv;
+      case '+':
+        node[key].num = lv + rv;
         break;
-      case '-': node[key].num = lv - rv;
+      case '-':
+        node[key].num = lv - rv;
         break;
-      case '*': node[key].num = lv * rv;
+      case '*':
+        node[key].num = lv * rv;
         break;
-      case '/': node[key].num = (double) lv / rv;
+      case '/':
+        node[key].num = (double) lv / rv;
         break;
-      default: printf("ERROR\n");
+      default:
+        printf("ERROR\n");
         break;
     }
   }

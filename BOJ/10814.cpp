@@ -8,7 +8,7 @@ struct member {
   int age{};
   string name;
 
-  bool operator<(const member& other) const {
+  bool operator<(const member &other) const {
     return age < other.age;
   }
 };

@@ -3,10 +3,10 @@
 using namespace std;
 
 int main() {
-    float a, b, c;
-    cin >> a >> b >> c;
+  float a, b, c;
+  cin >> a >> b >> c;
 
-    cout << a + b + c << '\n';
-    printf("%.1f", (a + b + c) / 3);
-    return 0;
+  cout << a + b + c << '\n';
+  printf("%.1f", (a + b + c) / 3);
+  return 0;
 }

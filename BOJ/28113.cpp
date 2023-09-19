@@ -14,6 +14,6 @@ int main() {
   else if (a > b) res = "Subway";
   else res = "Bus";
   cout << res;
-  
+
   return 0;
 }

@@ -3,12 +3,12 @@
 using namespace std;
 
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
+  ios_base::sync_with_stdio(false);
+  cin.tie(nullptr);
 
-    int a, b, c;
-    cin >> a >> b >> c;
+  int a, b, c;
+  cin >> a >> b >> c;
 
-    cout << (a + 1) * (b + 1) / (c + 1) - 1;
-    return 0;
+  cout << (a + 1) * (b + 1) / (c + 1) - 1;
+  return 0;
 }

@@ -8,9 +8,9 @@ int main() {
   cin.tie(nullptr);
 
   unordered_map<string, string> mp = {
-      {"SONGDO", "HIGHSCHOOL"},
-      {"CODE", "MASTER"},
-      {"2023", "0611"},
+      {"SONGDO",    "HIGHSCHOOL"},
+      {"CODE",      "MASTER"},
+      {"2023",      "0611"},
       {"ALGORITHM", "CONTEST"}
   };
 

@@ -16,8 +16,8 @@ void input() {
   pre = vector<int>(n);
   visited = vector<int>(n + 1);
 
-  for (int &i : in) cin >> i;
-  for (int &i : post) cin >> i;
+  for (int &i: in) cin >> i;
+  for (int &i: post) cin >> i;
 }
 
 void solve() {
@@ -31,10 +31,11 @@ void solve() {
 
   int postIdx = n - 1;
   int inIdx = n - 1;
-  int size = 0;}
+  int size = 0;
+}
 
 void output() {
-  for (int i : pre) cout << i << ' ';
+  for (int i: pre) cout << i << ' ';
 }
 
 int main() {

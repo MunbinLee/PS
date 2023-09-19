@@ -33,7 +33,7 @@ int main() {
       }
       prev = i;
     }
-    
+
     int res = n - maxConsecutive;
     cout << res << '\n';
   }

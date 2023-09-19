@@ -21,7 +21,7 @@ void solve() {
 
   while (lo < hi) {
     int area = (hi - lo) * min(v[lo], v[hi]);
-    if (area>maxArea)
+    if (area > maxArea)
       maxArea = max(maxArea, area);
     (v[lo] < v[hi]) ? lo++ : hi--;
   }

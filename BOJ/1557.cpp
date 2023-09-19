@@ -7,6 +7,6 @@ int main() {
   cin.tie(nullptr);
 
   int k;
-  
+
   return 0;
 }

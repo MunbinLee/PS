@@ -4,9 +4,9 @@
 using namespace std;
 
 int main() {
-    int n, m;
-    cin >> n >> m;
+  int n, m;
+  cin >> n >> m;
 
-    cout << abs((long long) n - m);
-    return 0;
+  cout << abs((long long) n - m);
+  return 0;
 }

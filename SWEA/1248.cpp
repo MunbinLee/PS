@@ -17,7 +17,7 @@ void input() {
 
   for (int i = 1; i <= v; i++) {
     node[i].parent = 0;
-    for (int &child : node[i].childs) {
+    for (int &child: node[i].childs) {
       child = 0;
     }
   }
@@ -40,7 +40,7 @@ int getParent() {
 }
 
 void getCnt(int key) {
-  for (int child : node[key].childs) {
+  for (int child: node[key].childs) {
     if (child != 0) getCnt(child);
   }
   cnt++;

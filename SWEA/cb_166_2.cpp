@@ -11,7 +11,7 @@ long long int ship, sum;
 vector<int> popul;
 
 void solve() {
-  for (int i : popul) {
+  for (int i: popul) {
     if (i > ship) break;
     cnt++;
     ship += i;

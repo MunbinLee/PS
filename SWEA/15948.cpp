@@ -13,7 +13,7 @@ vector<string> map;
 void input() {
   scanf("%d %d", &r, &c);
   map = vector<string>(r);
-  for (string &i : map) cin >> i;
+  for (string &i: map) cin >> i;
 }
 
 void dfs(int y, int x, int cnt) {

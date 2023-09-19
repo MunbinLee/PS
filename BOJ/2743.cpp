@@ -3,9 +3,9 @@
 using namespace std;
 
 int main() {
-    string s;
-    cin >> s;
+  string s;
+  cin >> s;
 
-    cout << s.size();
-    return 0;
+  cout << s.size();
+  return 0;
 }

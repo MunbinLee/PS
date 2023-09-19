@@ -14,7 +14,7 @@ int main() {
   while (t--) {
     int n, k;
     cin >> n >> k;
-    vector<pr> A(n);
+    vector <pr> A(n);
     vector<int> B(n), res(n);
     for (int i = 0; i < n; i++) {
       int x;

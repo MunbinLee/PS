@@ -3,9 +3,9 @@
 using namespace std;
 
 int main() {
-    int a, b;
-    cin >> a >> b;
+  int a, b;
+  cin >> a >> b;
 
-    cout << (long long) (a + b) * (a - b);
-    return 0;
+  cout << (long long) (a + b) * (a - b);
+  return 0;
 }

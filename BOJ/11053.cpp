@@ -14,7 +14,7 @@ void input() {
   cin >> n;
   v = vector<int>(n);
   dp = vector<int>(n);
-  for (int &i : v) cin >> i;
+  for (int &i: v) cin >> i;
 }
 
 int solve() {

@@ -3,10 +3,10 @@
 using namespace std;
 
 int main() {
-    char c;
-    cin >> c;
+  char c;
+  cin >> c;
 
-    c++;
-    cout << c;
-    return 0;
+  c++;
+  cout << c;
+  return 0;
 }

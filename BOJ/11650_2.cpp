@@ -18,7 +18,7 @@ int main() {
 
   int n;
   cin >> n;
-  vector<Pos> v(n);
+  vector <Pos> v(n);
   for (auto &i: v) {
     cin >> i.x >> i.y;
   }

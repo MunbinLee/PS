@@ -3,12 +3,12 @@
 using namespace std;
 
 int main() {
-    int n, m;
-    cin >> n >> m;
-    for (int i = 1; i <= n; i++) {
-        for (int j = 1; j <= m; j++) {
-            printf("%d %d\n", i, j);
-        }
+  int n, m;
+  cin >> n >> m;
+  for (int i = 1; i <= n; i++) {
+    for (int j = 1; j <= m; j++) {
+      printf("%d %d\n", i, j);
     }
-    return 0;
+  }
+  return 0;
 }
