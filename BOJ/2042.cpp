@@ -2,58 +2,55 @@
 #include <vector>
 
 using namespace std;
-typedef long long int ll;
 
-int n, m, k;
-vector<ll> segTree;
+signed main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-void input() {
-  ios_base::sync_with_stdio(false);
-  cin.tie(nullptr);
+    int N, M, K;
+    cin >> N >> M >> K;
+    vector<long> tree(N * 2);
 
-  cin >> n >> m >> k;
-  segTree.resize(n * 2);
-  for (int i = 0; i < n; i++) {
-    cin >> segTree[n + i];
-  }
-  for (int i = n - 1; i > 0; i--) {
-    segTree[i] = segTree[i * 2] + segTree[i * 2 + 1];
-  }
-}
+    for (int i = 0; i < N; i++) {
+        cin >> tree[N + i];
+    }
 
-void update(ll key, ll value) {
-  key += n - 1;
-  segTree[key] = value;
-  while (key /= 2) {
-    segTree[key] = segTree[key * 2] + segTree[key * 2 + 1];
-  }
-}
+    for (int i = N - 1; i > 0; i--) {
+        tree[i] = tree[i * 2] + tree[i * 2 + 1];
+    }
 
-ll query(ll begin, ll end) {
-  ll res = 0;
-  begin += n - 1;
-  end += n;
-  while (begin != end) {
-    if (begin % 2) res += segTree[begin++];
-    if (end % 2) res += segTree[--end];
-    begin /= 2;
-    end /= 2;
-  }
-  return res;
-}
+    auto update = [&](int key, long value) {
+        key += N;
+        tree[key] = value;
 
-void solve() {
-  int cnt = m + k;
-  while (cnt--) {
-    ll a, b, c;
-    cin >> a >> b >> c;
-    if (a == 1) update(b, c);
-    else if (a == 2) cout << query(b, c) << '\n';
-  }
-}
+        while (key /= 2) {
+            tree[key] = tree[key * 2] + tree[key * 2 + 1];
+        }
+    };
 
-int main() {
-  input();
-  solve();
-  return 0;
+    // [begin, end) 합
+    auto sum = [&](int begin, int end) {
+        long res = 0;
+        begin += N;
+        end += N;
+
+        while (begin != end) {
+            if (begin % 2) res += tree[begin++];
+            if (end % 2) res += tree[--end];
+            begin /= 2;
+            end /= 2;
+        }
+
+        return res;
+    };
+
+    for (int i = 0; i < M + K; i++) {
+        long a, b, c;
+        cin >> a >> b >> c;
+
+        if (a == 1) update(b - 1, c);
+        else cout << sum(b - 1, c) << '\n';
+    }
+
+    return 0;
 }
