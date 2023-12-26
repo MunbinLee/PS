@@ -28,8 +28,9 @@ int main() {
 
     for (int z = 0; z < N; z++) {
         for (int k = 0; k < N; k++) {
-            if (!sum[abs(U[k] - U[z])]) continue;
-            answer = max(answer, U[k]);
+            if (U[k] <= answer) continue;
+            if (!sum[(U[k] - U[z])]) continue;
+            answer = U[k];
         }
     }
 
