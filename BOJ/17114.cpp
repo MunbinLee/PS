@@ -10,6 +10,14 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
 
+    int arr[2][2];
+    arr[1][1] = 0;
+
+    cout << &arr[0][0] << '\n';
+    cout << &arr[0][1] << '\n';
+    cout << &arr[1][0] << '\n';
+    cout << &arr[1][1] << '\n';
+
     array<int, 11> sizes; // NOLINT
 
     for (int &size: sizes) {
