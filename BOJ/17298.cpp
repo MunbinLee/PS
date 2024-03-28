@@ -5,28 +5,35 @@
 using namespace std;
 
 int main() {
-  ios_base::sync_with_stdio(false);
-  cin.tie(nullptr);
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-  int n;
-  cin >> n;
-  vector<int> v(n);
-  vector<int> ans(n);
+    int N;
+    cin >> N;
 
-  for (int &i: v) {
-    cin >> i;
-  }
+    vector<int> A(N), answer(N, -1);
 
-  stack<int> st;
-  for (int i = n - 1; i >= 0; i--) {
-    while (!st.empty() && v[i] >= st.top()) st.pop();
-    if (st.empty()) ans[i] = -1;
-    else ans[i] = st.top();
-    st.push(v[i]);
-  }
+    for (int &num: A) {
+        cin >> num;
+    }
 
-  for (int i: ans) {
-    cout << i << " ";
-  }
-  return 0;
+    stack<int> st;
+
+    for (int i = N - 1; i >= 0; i--) {
+        while (!st.empty() && st.top() <= A[i]) {
+            st.pop();
+        }
+
+        if (!st.empty()) {
+            answer[i] = st.top();
+        }
+
+        st.emplace(A[i]);
+    }
+
+    for (int num: answer) {
+        cout << num << ' ';
+    }
+
+    return 0;
 }

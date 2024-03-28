@@ -1,25 +1,26 @@
 #include <iostream>
+#include <array>
 
 using namespace std;
 
-#define REP(i, n) for (int (i) = 0; (i) < (n); ++(i))
-
 int main() {
-  ios_base::sync_with_stdio(false);
-  cin.tie(nullptr);
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-  int mx = 0;
-  int res = -1;
+    array<int, 9> arr{};
+    int mx = -1;
+    int idx = -1;
 
-  REP(i, 9) {
-    int n;
-    cin >> n;
-    if (n > mx) {
-      mx = n;
-      res = i;
+    for (int i = 0; i < 9; i++) {
+        cin >> arr[i];
+
+        if (arr[i] > mx) {
+            mx = arr[i];
+            idx = i;
+        }
     }
-  }
 
-  cout << mx << '\n' << res + 1;
-  return 0;
+    cout << mx << '\n' << idx + 1;
+
+    return 0;
 }
