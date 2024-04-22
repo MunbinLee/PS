@@ -1,41 +1,47 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
+#include <unordered_map>
 
 using namespace std;
 
-const long MOD = 1'000'000'007;
+constexpr long long MOD = 1'000'000'007;
+unordered_map<int, long long> memo{
+    {0, 1}
+};
+
+long long power(int x) {
+    // NOLINT
+    if (memo.contains(x)) return memo[x];
+
+    if (x % 2) return memo[x] = power(x - 1) * 2 % MOD;
+
+    return power(x / 2) * power(x / 2) % MOD;
+}
 
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    vector<int> hot_vector;
-    hot_vector.reserve(300000);
-
-    int hot_min = INT_MAX;
-    int hot_max = 0;
-    long pain_sum = 0;
-
     int N;
     cin >> N;
 
-    while (N--) {
-        int hot_input;
-        cin >> hot_input;
+    vector<int> foods(N);
 
-        hot_min = min(hot_min, hot_input);
-        hot_max = max(hot_max, hot_input);
-
-        for (int hot: hot_vector) {
-            int pain = max(hot_max - hot, hot - hot_min);
-            pain_sum += pain;
-        }
-
-        hot_vector.emplace_back(hot_input);
-        cout << pain_sum << ' ';
+    for (int &food: foods) {
+        cin >> food;
     }
 
-    cout << pain_sum;
+    ranges::sort(foods);
+
+    long long answer = 0;
+
+    for (int i = 0; i < N; i++) {
+        answer += foods[i] * (power(i) - power(N - 1 - i));
+        answer %= MOD;
+    }
+
+    cout << answer;
 
     return 0;
 }
