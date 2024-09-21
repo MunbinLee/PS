@@ -4,52 +4,63 @@
 
 using namespace std;
 
-typedef pair<int, int> pr;
-
-const int INF = 987654321;
-
 int main() {
-  ios_base::sync_with_stdio(false);
-  cin.tie(nullptr);
-
-  int v;
-  cin >> v;
-  vector<vector<pr>> path(v + 1);
-  for (int i = 0; i < v; i++) {
-    int start, end, cost;
-    cin >> start >> end;
-    while (end != -1) {
-      cin >> cost;
-      path[start].emplace_back(cost, end);
-      cin >> end;
+    cin.tie(nullptr) -> sync_with_stdio(false);
+    
+    int V;
+    cin >> V;
+    
+    vector<vector<pair<int, int>>> edges(V + 1);
+    
+    for (int i = 0; i < V; i++) {
+        int begin;
+        cin >> begin;
+        
+        int end;
+        cin >> end;
+        
+        while (end != -1) {
+            int dist;
+            cin >> dist;
+            
+            edges[begin].emplace_back(end, dist);
+            
+            cin >> end;
+        }
     }
-  }
-
-  vector<vector<int>> dist(v + 1, vector<int>(v + 1, INF));
-  priority_queue<pr, vector<pr>, greater<>> pq;
-  for (int i = 1; i <= v; i++) {
-    pq.emplace(0, i);
-  }
-
-  while (!pq.empty()) {
-    auto [cost, cur] = pq.top();
-    pq.pop();
-    for (auto [ncost, next]: path[cur]) {
-      int sumCost = ncost + cost;
-      if (sumCost >= dist[cur][next]) continue;
-      dist[cur][next] = sumCost;
-      pq.emplace(sumCost, next);
-    }
-  }
-
-  int maxDist = 0;
-  for (int i = 1; i + 1 <= v; i++) {
-    for (int j = i + 1; j <= v; j++) {
-      if (dist[i][j] == INF) continue;
-      maxDist = max(maxDist, dist[i][j]);
-    }
-  }
-
-  cout << maxDist;
-  return 0;
+    
+    auto bfs = [&](int begin) {
+        vector<bool> visited(V + 1);
+        visited[begin] = true;
+        queue<pair<int, int>> q;
+        q.emplace(begin, 0);
+        int maxCost = -1;
+        int furthestVertex = -1;
+        
+        while (!q.empty()) {
+            auto [cur, cost] = q.front();
+            q.pop();
+            
+            for (auto [next, nDist]: edges[cur]) {
+                if (visited[next]) {
+                    continue;
+                }
+                
+                visited[next] = true;
+                int nCost = cost + nDist;
+                q.emplace(next, nCost);
+                
+                if (nCost > maxCost) {
+                    maxCost = nCost;
+                    furthestVertex = next;
+                }
+            }
+        }
+        
+        return vector {furthestVertex, maxCost};
+    };
+    
+    cout << bfs(bfs(1)[0])[1];
+    
+    return 0;
 }
